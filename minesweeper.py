@@ -1,13 +1,12 @@
 import random
 
 
-class Minesweeper():
+class Minesweeper:
     """
     Minesweeper game representation
     """
-    
-    def __init__(self, height=8, width=8, mines=8):
 
+    def __init__(self, height=8, width=8, mines=8):
         # Set initial width, height, and number of mines
         self.height = height
         self.width = width
@@ -80,7 +79,6 @@ class Minesweeper():
         # Loop over all cells within one row and column
         for i in range(cell[0] - 1, cell[0] + 2):
             for j in range(cell[1] - 1, cell[1] + 2):
-
                 # Ignore the cell itself
                 if (i, j) == cell:
                     continue
@@ -99,7 +97,7 @@ class Minesweeper():
         return self.mines_found == self.mines
 
 
-class Sentence():
+class Sentence:
     """
     Logical statement about a Minesweeper game
     A sentence consists of a set of board cells,
@@ -160,13 +158,12 @@ class Sentence():
         # raise NotImplementedError
 
 
-class MinesweeperAI():
+class MinesweeperAI:
     """
     Minesweeper game player
     """
 
     def __init__(self, height=8, width=8):
-
         # Set initial height and width
         self.height = height
         self.width = width
@@ -260,14 +257,18 @@ class MinesweeperAI():
             for another_sentence in self.knowledge[:]:
                 if existing_sentence.cells < another_sentence.cells:
                     self.knowledge.remove(another_sentence)
-                    self.knowledge.append(Sentence(
-                    another_sentence.cells.difference(existing_sentence.cells),
-                    another_sentence.count - existing_sentence.count))
+                    self.knowledge.append(
+                        Sentence(
+                            another_sentence.cells.difference(existing_sentence.cells),
+                            another_sentence.count - existing_sentence.count,
+                        )
+                    )
                     is_unchanged = False
                 elif existing_sentence.cells > another_sentence.cells:
                     existing_sentence = Sentence(
-                    existing_sentence.cells.difference(another_sentence.cells),
-                    existing_sentence.count - another_sentence.count)
+                        existing_sentence.cells.difference(another_sentence.cells),
+                        existing_sentence.count - another_sentence.count,
+                    )
                     is_unchanged = False
 
             if is_unchanged:
@@ -378,7 +379,9 @@ class MinesweeperAI():
             j = random.randrange(self.width)
 
             if (i, j) not in self.moves_made or (i, j) not in self.mines:
-                print(f"Random empty cell {(i, j)} found. It is still not a mine but careful, it can be.")
+                print(
+                    f"Random empty cell {(i, j)} found. It is still not a mine but careful, it can be."
+                )
                 return (i, j)
 
         # raise NotImplementedError
